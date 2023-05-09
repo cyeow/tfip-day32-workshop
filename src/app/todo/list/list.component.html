@@ -1,0 +1,26 @@
+<h2>To Do List</h2>
+<table *ngIf="todoList.length > 0 else noList">
+    <thead>
+        <tr>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let s of todoList; let i = index">
+            <td>
+                <span>
+                    {{ s.title }} ({{ s.taskList.length }})
+                </span>
+            </td>
+            <td>
+                <button (click)="removeTodo(i)" class="btn btn-danger float-end">X</button>
+            </td>
+            <td>
+                <button (click)="editTodo(i)" class="btn btn-warning float-end">Edit</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #noList>
+    <span>Nothing to do!</span>
+</ng-template>

@@ -1,0 +1,61 @@
+<div [formGroup]="todoForm">
+    <form>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <h3>Add</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td>
+                    <input type="text" size="30" [formControlName]="titleField">
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" size="30" [formControlName]="nameField">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <h3>List</h3>
+    <button (click)="addTodoItem()" class="btn btn-primary">Add Task</button>
+    <button *ngIf="taskArray.length > 0" type="submit" (click)="processForm()" class="btn btn-success float-end">Save</button>
+    <table *ngIf="taskArray.length > 0 else noItems">
+        <thead>
+            <tr>
+                <th class="col-3">Task</th>
+                <th class="col-3">Priority</th>
+                <th class="col-3">Due Date</th>
+            </tr>
+        </thead>
+        <tbody [formArrayName]="taskListField">
+            <tr *ngFor="let task of taskArray.controls; let i = index" [formGroupName]="i">
+                <td class="col-3">
+                    <input type="text" name="task" [formControlName]="itemNameField">
+                </td>
+                <td class="col-3">
+                    <input type="radio" value="1" formControlName="priority">
+                    <label for="low">Low</label>
+                    <input type="radio" value="2" formControlName="priority">
+                    <label for="med">Med</label>
+                    <input type="radio" value="3" formControlName="priority">
+                    <label for="high">High</label>
+                </td>
+                <td class="col-3">
+                    <input type="date" [formControlName]="dueDateField">
+                </td>
+                <td>
+                    <button (click)="removeTodoItem(i)" class="btn btn-danger">X</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #noItems>
+        <p>
+            No tasks!
+        </p>
+    </ng-template>
+</div>
